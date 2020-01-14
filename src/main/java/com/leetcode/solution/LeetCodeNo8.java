@@ -56,7 +56,7 @@ public class LeetCodeNo8 {
         if(str.length() < 1){
             return  0;
         }
-        long res = 0;
+        int res = 0;
         // 首位是'-'为负数
         boolean negative = str.charAt(0) == '-';
         // 首位是正号，符号，或者数字
@@ -65,7 +65,7 @@ public class LeetCodeNo8 {
             for (int i = str.charAt(0) == '-' || str.charAt(0) == '+' ? 1 : 0; i < str.length(); i++) {
                 // 遇到第一个不是数字的字符直接返回
                 if(str.charAt(i) > '9' || str.charAt(i) < '0'){
-                    return negative ? (int)-res : (int)res;
+                    return negative ? -res : res;
                 }
                 int temp = str.charAt(i) - '0';
                 // 判断是否超过Integer.MAX_VALUE
@@ -75,10 +75,10 @@ public class LeetCodeNo8 {
                 res = res * 10 + temp;
             }
         }
-        return negative ? (int)-res : (int)res;
+        return negative ? -res : res;
     }
 
     public static void main(String[] args) {
-        System.out.println(myAtoi("21474836471111"));
+        System.out.println(myAtoi("214748364781111"));
     }
 }
