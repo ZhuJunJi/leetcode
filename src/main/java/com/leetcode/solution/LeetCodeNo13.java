@@ -53,38 +53,50 @@ public class LeetCodeNo13 {
      */
     public int romanToInt(String s) {
 
-        HashMap<Character, Integer> romanDict = new HashMap<>();
-        romanDict.put('I',1);
-        romanDict.put('V',5);
-        romanDict.put('X',10);
-        romanDict.put('L',50);
-        romanDict.put('C',100);
-        romanDict.put('D',500);
-        romanDict.put('M',1000);
-
         int sum = 0;
         for (int i = 0; i < s.length(); i++) {
-            // 后面一位比前一位大就减，比前一位小就加
-            sum += romanDict.get(s.charAt(i));
+
+            char currChar = s.charAt(i);
+
+            sum += getNum(currChar);
             if(i > 0){
                 // 6种特殊情况
-                if(s.charAt(i-1) == 'I'){
-                    if(s.charAt(i) == 'V' || s.charAt(i) == 'X'){
+                char preChar = s.charAt(i-1);
+                if(preChar == 'I'){
+                    if(currChar == 'V' || currChar == 'X'){
                         sum -= 2;
                     }
-                }
-                if(s.charAt(i-1) == 'X'){
-                    if(s.charAt(i) == 'L' || s.charAt(i) == 'C'){
+                }else if(preChar == 'X'){
+                    if(currChar== 'L' || currChar == 'C'){
                         sum -= 20;
                     }
-                }
-                if(s.charAt(i-1) == 'C'){
-                    if(s.charAt(i) == 'D' || s.charAt(i) == 'M'){
+                }else if(preChar == 'C'){
+                    if(currChar == 'D' || currChar == 'M'){
                         sum -= 200;
                     }
                 }
             }
+
         }
         return sum;
+    }
+
+    private int getNum(char car){
+        if(car == 'I'){
+            return  1;
+        }else if(car == 'V'){
+            return  5;
+        }else if(car == 'X'){
+            return 10;
+        }else if(car == 'L'){
+            return 50;
+        }else if(car == 'C'){
+            return 100;
+        }else if(car == 'D'){
+            return 500;
+        }else if(car == 'M'){
+            return 1000;
+        }
+        return 0;
     }
 }
