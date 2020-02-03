@@ -23,22 +23,20 @@ public class LeetCodeNo2 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode root = new ListNode(0);
-        ListNode nodeX = l1, nodeY = l2, current = root;
         int carry = 0;
-        while (nodeX != null || nodeY != null) {
-            int x = 0;
-            int y = 0;
-            if (nodeX != null) {
-                x = nodeX.val;
-                nodeX = nodeX.next;
+        ListNode root = new ListNode(0);
+        ListNode p1 = l1, p2 = l2, current = root;
+        while (p1 != null || p2 != null) {
+            int sum = 0;
+            if (p1 != null) {
+                sum += p1.val;
+                p1 = p1.next;
             }
-            if (nodeY != null) {
-                y = nodeY.val;
-                nodeY = nodeY.next;
+            if (p2 != null) {
+                sum += p2.val;
+                p2 = p2.next;
             }
-            int sum = x + y + carry;
-            // sum除10 满十进位
+            sum += carry;
             carry = sum / 10;
             current.next = new ListNode(sum % 10);
             current = current.next;
@@ -69,7 +67,10 @@ public class LeetCodeNo2 {
     public static class ListNode {
         int val;
         ListNode next;
-        ListNode(int x) { val = x; }
+
+        ListNode(int x) {
+            val = x;
+        }
     }
 
 }

@@ -31,40 +31,41 @@ public class LeetCodeNo4 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int m = nums1.length - 1, n = nums2.length - 1;
-        int median = (nums1.length + nums2.length) / 2 + 1;
-        int temp = 0;
-        int x = 0;
-        while (true) {
-            int numberM = Integer.MIN_VALUE;
-            int numberN = Integer.MIN_VALUE;
-            if (m >= 0) {
-                numberM = nums1[m];
+        int midle = (nums1.length + nums2.length) / 2;
+        int index1 = 0;
+        int index2 = 0;
+        int[] res = new int[2];
+        while (index1 + index2 <= midle) {
+            int temp1 = Integer.MAX_VALUE;
+            int temp2 = Integer.MAX_VALUE;
+            if (index1 < nums1.length) {
+                temp1 = nums1[index1];
             }
-            if (n >= 0) {
-                numberN = nums2[n];
+            if (index2 < nums2.length) {
+                temp2 = nums2[index2];
             }
-            if (numberM >= numberN) {
-                m--;
+            // 哪个小哪个动
+            if (temp1 < temp2) {
+                // 奇数偶数判断
+                res[0] = res[1];
+                res[1] = temp1;
+                index1++;
             } else {
-                n--;
+                res[0] = res[1];
+                res[1] = temp2;
+                index2++;
             }
-            x++;
-            if (x == median) {
-                if ((nums1.length + nums2.length) % 2 == 0) {
-                    // 偶数中位数为 (m + n)/2 和 (m + n)/2 + 1 合除以2
-                    return (double) (temp + Math.max(numberM, numberN)) / 2;
-                } else {
-                    return Math.max(numberM, numberN);
-                }
-            }
-            temp = Math.max(numberM, numberN);
         }
+
+        if ((nums1.length + nums2.length) % 2 == 0) {
+            return (double) (res[0] + res[1]) / 2;
+        }
+        return res[1];
     }
 
     public static void main(String[] args) {
-        int[] nums1 = new int[]{1, 3};
-        int[] nums2 = new int[]{2,4};
+        int[] nums1 = new int[]{};
+        int[] nums2 = new int[]{2};
         double medianSortedArrays = findMedianSortedArrays(nums1, nums2);
         System.out.println(medianSortedArrays);
     }

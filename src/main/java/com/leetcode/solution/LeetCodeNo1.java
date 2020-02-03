@@ -1,6 +1,7 @@
 package com.leetcode.solution;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author  zhujunji
@@ -25,10 +26,11 @@ public class LeetCodeNo1 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public static int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        Map<Integer,Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if(map.containsKey(target-nums[i])){
-                return new int[]{map.get(target-nums[i]),i};
+            // 如果map中有target-nums[i]找到答案
+            if(map.containsKey(target - nums[i] )){
+                return new int[]{map.get(target - nums[i]),i};
             }else {
                 map.put(nums[i],i);
             }
@@ -38,7 +40,7 @@ public class LeetCodeNo1 {
 
     public static void main(String[] args) {
         int[] nums = {2, 7, 11, 15};
-        int[] result = twoSum(nums, 9);
+        int[] result = twoSum(nums, 26);
         System.out.println(result);
     }
 
