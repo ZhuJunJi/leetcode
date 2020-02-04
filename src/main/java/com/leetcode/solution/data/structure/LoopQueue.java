@@ -51,8 +51,8 @@ public class LoopQueue<E> implements Queue<E> {
      */
     private void resize(int newCapacity) {
         E[] newData = (E[]) new Object[newCapacity + 1];
-        for (int i = front,j = 0; j < size; i = (i + 1) % data.length, j++) {
-            newData[j] = data[i];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[(i + front) % data.length];
         }
         data = newData;
         front = 0;
@@ -67,13 +67,19 @@ public class LoopQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
 
-        E frontElement = getFront();
+        E ret = getFront();
+
+        data[front] = null;
 
         front = (front + 1) % (data.length);
 
         size--;
 
-        return frontElement;
+        if(size == data.length / 4 && capacity / 2 != 0){
+            resize(capacity / 2);
+        }
+
+        return ret;
     }
 
     @Override
@@ -82,10 +88,6 @@ public class LoopQueue<E> implements Queue<E> {
         // 队列为空
         if(front == tail){
             throw new IllegalArgumentException("Dequeue failed, Queue is empty!");
-        }
-
-        if(size == data.length / 4 && capacity / 2 != 0){
-            resize(capacity / 2);
         }
 
         return data[front];
@@ -109,14 +111,14 @@ public class LoopQueue<E> implements Queue<E> {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("LoopQueue: size = %d, capacity = %d, data = [", size, data.length));
-        for (int i = front, j = 0; j < size; i = (i + 1) % data.length, j++) {
-            stringBuilder.append(data[i]);
-            if(j != size - 1){
+        stringBuilder.append(String.format("LoopQueue: size = %d, capacity = %d, data = front [", size, capacity));
+        for (int i = 0; i < size; i++) {
+            stringBuilder.append(data[(i + front) % data.length]);
+            if(i != size - 1){
                 stringBuilder.append(", ");
             }
         }
-        stringBuilder.append("]");
+        stringBuilder.append("] tail");
         return stringBuilder.toString();
     }
 
