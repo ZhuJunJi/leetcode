@@ -1,5 +1,7 @@
 package com.leetcode.solution;
 
+import org.junit.Test;
+
 /**
  * @author zhujunji
  * @date 2020-01-13
@@ -28,48 +30,27 @@ public class LeetCodeNo7 {
      * 链接：https://leetcode-cn.com/problems/reverse-integer
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-    public static int reverse(int x) {
-        // 自己做得差劲
-        String xStr = String.valueOf(x);
-        String signBit = "";
-        if (x < 0) {
-            signBit = "-";
-            xStr = xStr.replaceAll(signBit, "");
-        }
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(signBit);
-        for (int i = xStr.length() - 1; i >= 0; i--) {
-            buffer.append(xStr.charAt(i));
-        }
-        long result = Long.parseLong(buffer.toString());
-        if (result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) {
-            return 0;
-        }
-        return (int) result;
-    }
-
-    public static int reverseFast(int x) {
-        // 大佬做得牛逼
-        int reverse = 0;
-        int temp = x;
+    public int reverse(int x) {
         boolean negative = x < 0;
-        if (negative) {
-            temp = -temp;
+        if(negative){
+            // x = -2147483648 时 -x = 2147483648 超出 Integer.MAX_VALUE 最大值还是为负数
+            // 所以 while 循环的条件是 x > 0 不能是 x != 0
+            x = -x;
         }
-        // 整数每次取模10得到个位数，再除以10循环
-        while (temp > 0) {
-            int singles = temp % 10;
-            temp /= 10;
-            if (reverse > Integer.MAX_VALUE / 10) {
+        int reverse = 0;
+        while (x > 0){
+            if(reverse > Integer.MAX_VALUE / 10){
                 return 0;
             }
-            reverse = reverse * 10 + singles;
+            reverse = 10 * reverse + x % 10;
+            x /= 10;
         }
         return negative ? -reverse : reverse;
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void test(){
         System.out.println(Integer.MAX_VALUE);
-        System.out.println(reverse(-2147483642));
+        System.out.println(reverse(-2147483648));
     }
 }

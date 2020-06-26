@@ -25,7 +25,7 @@ public class LeetCodeNo1 {
      * 链接：https://leetcode-cn.com/problems/two-sum
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-    public static int[] twoSum(int[] nums, int target) {
+    public int[] twoSum(int[] nums, int target) {
         Map<Integer,Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             // 如果map中有target-nums[i]找到答案
@@ -37,11 +37,4 @@ public class LeetCodeNo1 {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        int[] nums = {2, 7, 11, 15};
-        int[] result = twoSum(nums, 26);
-        System.out.println(result);
-    }
-
 }

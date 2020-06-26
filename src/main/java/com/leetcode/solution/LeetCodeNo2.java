@@ -1,5 +1,7 @@
 package com.leetcode.solution;
 
+import org.junit.Test;
+
 /**
  * @author zhujunji
  * @date 2019-12-22
@@ -22,32 +24,31 @@ public class LeetCodeNo2 {
      * 链接：https://leetcode-cn.com/problems/add-two-numbers
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int carry = 0;
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int sum = 0;
         ListNode root = new ListNode(0);
         ListNode p1 = l1, p2 = l2, current = root;
-        while (p1 != null || p2 != null) {
-            int sum = 0;
-            if (p1 != null) {
+        while (p1 != null || p2 != null){
+            if(p1 != null){
                 sum += p1.val;
                 p1 = p1.next;
             }
-            if (p2 != null) {
+            if(p2 != null){
                 sum += p2.val;
                 p2 = p2.next;
             }
-            sum += carry;
-            carry = sum / 10;
             current.next = new ListNode(sum % 10);
             current = current.next;
+            sum /= 10;
         }
-        if (carry > 0) {
-            current.next = new ListNode(carry);
+        if(sum > 0){
+            current.next = new ListNode(sum);
         }
         return root.next;
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void test() {
         ListNode l1 = new ListNode(2);
         ListNode l2 = new ListNode(4);
         ListNode l3 = new ListNode(3);
@@ -64,7 +65,7 @@ public class LeetCodeNo2 {
         System.out.println(result);
     }
 
-    public static class ListNode {
+    public class ListNode {
         int val;
         ListNode next;
 
