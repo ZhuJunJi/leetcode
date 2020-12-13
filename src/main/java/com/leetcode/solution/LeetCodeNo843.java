@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2020/12/8
  * @since 1.0
  */
-public class LeetCode843 {
+public class LeetCodeNo843 {
 
     /**
      * 定一个数字字符串 S，比如 S = "123456579"，我们可以将它分成斐波那契式的序列 [123, 456, 579]。
@@ -91,7 +91,7 @@ public class LeetCode843 {
 
     public static void main(String[] args) {
         String s = "01123";
-        System.out.println(new LeetCode843().splitIntoFibonacci(s));
+        System.out.println(new LeetCodeNo843().splitIntoFibonacci(s));
     }
 
 
